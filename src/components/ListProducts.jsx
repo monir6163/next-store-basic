@@ -1,3 +1,4 @@
+import CustomPagination from "./CustomPagination";
 import Filters from "./Filters";
 import ProductItem from "./ProductItem";
 
@@ -12,6 +13,10 @@ const ListProducts = ({ products }) => {
             {products?.products?.map((product, i) => (
               <ProductItem key={i} product={product} />
             ))}
+            <CustomPagination
+              resPerPage={products?.resPerPage}
+              productsCount={products?.filteredProductsCount}
+            />
           </main>
         </div>
       </div>

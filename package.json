@@ -20,8 +20,10 @@
     "next": "14.2.1",
     "next-auth": "^4.24.7",
     "nextjs-toploader": "^1.6.11",
+    "query-string": "^9.0.0",
     "react": "^18",
     "react-dom": "^18",
+    "react-js-pagination": "^3.0.3",
     "react-star-ratings": "^2.3.0",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7"
