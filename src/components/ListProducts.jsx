@@ -13,10 +13,14 @@ const ListProducts = ({ products }) => {
             {products?.products?.map((product, i) => (
               <ProductItem key={i} product={product} />
             ))}
-            <CustomPagination
-              resPerPage={products?.resPerPage}
-              productsCount={products?.filteredProductsCount}
-            />
+            {products?.products?.length === 0 ? (
+              <div className="text-center">No Products Found</div>
+            ) : (
+              <CustomPagination
+                resPerPage={products?.resPerPage}
+                productsCount={products?.filteredProductsCount}
+              />
+            )}
           </main>
         </div>
       </div>

@@ -42,6 +42,9 @@ const ProductItem = ({ product }) => {
               </div>
               <b className="text-gray-300">•</b>
               <span className="ml-1 text-yellow-500">{product?.ratings}</span>
+              <div className="ratings">
+                <div className="my-1">{product?.category}</div>
+              </div>
             </div>
             <p className="text-gray-500 mb-2">
               {product?.description.substring(0, 150)}...

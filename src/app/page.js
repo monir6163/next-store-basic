@@ -5,6 +5,11 @@ import queryString from "query-string";
 async function getProducts(searchParams) {
   const urlParamas = {
     keyword: searchParams.keyword,
+    page: searchParams.page,
+    category: searchParams.category,
+    "price[gte]": searchParams.min,
+    "price[lte]": searchParams.max,
+    "ratings[gte]": searchParams.ratings,
   };
   const queryStr = queryString.stringify(urlParamas);
   const { data } = await axios.get(

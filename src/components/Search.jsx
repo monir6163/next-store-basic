@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Search = () => {
   const router = useRouter();
@@ -14,8 +14,22 @@ const Search = () => {
       router.push("/");
     }
   };
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (keyword) {
+        router.push(`/?keyword=${keyword}`);
+      } else {
+        router.push("/");
+      }
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [keyword, router]);
   return (
-    <form className="flex flex-nowrap items-center w-full order-last md:order-none mt-5 md:mt-0 md:w-2/4 lg:w-2/4">
+    <form
+      className="flex flex-nowrap items-center w-full order-last md:order-none mt-5 md:mt-0 md:w-2/4 lg:w-2/4"
+      onSubmit={handleSubmit}
+    >
       <input
         className="flex-grow appearance-none border border-gray-200 bg-gray-100 rounded-md mr-2 py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400"
         type="text"
