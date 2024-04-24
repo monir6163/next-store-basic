@@ -8,7 +8,9 @@ import StarRatings from "react-star-ratings";
 const Filters = () => {
   const [min, setMin] = useState("");
   const [max, setMax] = useState("");
+
   const router = useRouter();
+
   let queryParams;
 
   function handleClick(checkbox) {
@@ -50,12 +52,13 @@ const Filters = () => {
   }
 
   function checkHandler(checkBoxType, checkBoxValue) {
-    // if (typeof window !== "undefined") {
-    //   queryParams = new URLSearchParams(window.location.search);
-    //   const value = queryParams.get(checkBoxType);
-    //   if (checkBoxValue === value) return true;
-    //   return false;
-    // }
+    if (typeof window !== "undefined") {
+      queryParams = new URLSearchParams(window.location.search);
+
+      const value = queryParams.get(checkBoxType);
+      if (checkBoxValue === value) return true;
+      return false;
+    }
   }
 
   return (
@@ -75,6 +78,7 @@ const Filters = () => {
               className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               type="number"
               placeholder="Min"
+              value={min}
               onChange={(e) => setMin(e.target.value)}
             />
           </div>
@@ -85,6 +89,7 @@ const Filters = () => {
               className="appearance-none border border-gray-200 bg-gray-100 rounded-md py-2 px-3 hover:border-gray-400 focus:outline-none focus:border-gray-400 w-full"
               type="number"
               placeholder="Max"
+              value={max}
               onChange={(e) => setMax(e.target.value)}
             />
           </div>
@@ -111,8 +116,8 @@ const Filters = () => {
                 type="checkbox"
                 value="Electronics"
                 className="h-4 w-4"
+                defaultChecked={checkHandler("category", "Electronics")}
                 onClick={(e) => handleClick(e.target)}
-                checked={checkHandler("category", "Electronics")}
               />
               <span className="ml-2 text-gray-500"> Electronics </span>
             </label>
@@ -124,8 +129,8 @@ const Filters = () => {
                 type="checkbox"
                 value="Laptops"
                 className="h-4 w-4"
-                onClick={(e) => handleClick(e.target)}
                 defaultChecked={checkHandler("category", "Laptops")}
+                onClick={(e) => handleClick(e.target)}
               />
               <span className="ml-2 text-gray-500"> Laptops </span>
             </label>
@@ -137,8 +142,8 @@ const Filters = () => {
                 type="checkbox"
                 value="Toys"
                 className="h-4 w-4"
-                onClick={(e) => handleClick(e.target)}
                 defaultChecked={checkHandler("category", "Toys")}
+                onClick={(e) => handleClick(e.target)}
               />
               <span className="ml-2 text-gray-500"> Toys </span>
             </label>
@@ -150,8 +155,8 @@ const Filters = () => {
                 type="checkbox"
                 value="Office"
                 className="h-4 w-4"
-                onClick={(e) => handleClick(e.target)}
                 defaultChecked={checkHandler("category", "Office")}
+                onClick={(e) => handleClick(e.target)}
               />
               <span className="ml-2 text-gray-500"> Office </span>
             </label>
@@ -163,8 +168,8 @@ const Filters = () => {
                 type="checkbox"
                 value="Beauty"
                 className="h-4 w-4"
-                onClick={(e) => handleClick(e.target)}
                 defaultChecked={checkHandler("category", "Beauty")}
+                onClick={(e) => handleClick(e.target)}
               />
               <span className="ml-2 text-gray-500"> Beauty </span>
             </label>
@@ -183,8 +188,8 @@ const Filters = () => {
                   type="checkbox"
                   value={rating}
                   className="h-4 w-4"
+                  defaultChecked={checkHandler("ratings", `${rating}`)}
                   onClick={(e) => handleClick(e.target)}
-                  defaultChecked={checkHandler("ratings", rating)}
                 />
                 <span className="ml-2 text-gray-500">
                   {" "}

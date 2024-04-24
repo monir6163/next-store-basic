@@ -1,20 +1,27 @@
-import Image from "next/image";
+"use client";
+import CartContext from "@/context/cartContext";
 import Link from "next/link";
+import { useContext } from "react";
 import Search from "./Search";
 
 const Header = () => {
+  const { cart } = useContext(CartContext);
+  const totalItems = cart?.cartItems?.length;
   return (
     <header className="bg-white py-2 border-b">
       <div className="container max-w-screen-xl mx-auto px-4">
         <div className="flex flex-wrap items-center">
           <div className="flex-shrink-0 mr-5">
             <Link href="/">
-              <Image
+              {/* <Image
                 src="/images/logo.png"
                 height="40"
                 width="120"
                 alt="BuyItNow"
-              />
+              /> */}
+              <span className="font-extrabold text-black">
+                First Next.js Ecommerce
+              </span>
             </Link>
           </div>
           <Search />
@@ -26,7 +33,7 @@ const Header = () => {
             >
               <i className="text-gray-400 w-5 fa fa-shopping-cart"></i>
               <span className="hidden lg:inline ml-1">
-                Cart (<b>0</b>)
+                Cart (<b>{totalItems || 0}</b>)
               </span>
             </Link>
             <Link

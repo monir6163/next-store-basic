@@ -1,6 +1,7 @@
 import Header from "@/components/Header";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
+import { GlobalProvider } from "./GlobalProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -14,9 +15,11 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
-        <Header />
-        <NextTopLoader />
-        {children}
+        <GlobalProvider>
+          <Header />
+          <NextTopLoader />
+          {children}
+        </GlobalProvider>
       </body>
     </html>
   );
