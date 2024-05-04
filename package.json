@@ -11,8 +11,10 @@
   "dependencies": {
     "@radix-ui/react-slot": "^1.0.2",
     "axios": "^1.6.8",
+    "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "countries-list": "^3.1.0",
     "embla-carousel-react": "^8.0.2",
     "lucide-react": "^0.368.0",
     "mongodb": "^6.5.0",
@@ -25,6 +27,7 @@
     "react-dom": "^18",
     "react-js-pagination": "^3.0.3",
     "react-star-ratings": "^2.3.0",
+    "react-toastify": "^10.0.5",
     "tailwind-merge": "^2.2.2",
     "tailwindcss-animate": "^1.0.7"
   },

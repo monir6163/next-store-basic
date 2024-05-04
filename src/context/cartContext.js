@@ -1,13 +1,13 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
-const CartContext = createContext();
+export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  const router = useRouter();
+  // const router = useRouter();
 
   useEffect(() => {
     setCartToState();
@@ -60,6 +60,7 @@ export const CartProvider = ({ children }) => {
     const newCartItems = cart?.cartItems?.filter((x) => x.product !== id);
     localStorage.setItem("cart", JSON.stringify({ cartItems: newCartItems }));
     setCartToState();
+    toast.success("Product removed from cart");
   };
 
   return (
@@ -74,5 +75,3 @@ export const CartProvider = ({ children }) => {
     </CartContext.Provider>
   );
 };
-
-export default CartContext;

@@ -1,5 +1,5 @@
 "use client";
-import CartContext from "@/context/cartContext";
+import { CartContext } from "@/context/cartContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";

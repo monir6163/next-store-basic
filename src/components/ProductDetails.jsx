@@ -1,8 +1,9 @@
 "use client";
-import CartContext from "@/context/cartContext";
+import { CartContext } from "@/context/cartContext";
 import Image from "next/image";
 import { useContext, useRef } from "react";
 import StarRatings from "react-star-ratings";
+import { toast } from "react-toastify";
 import BreadCrumbs from "./BreadCrumbs";
 
 const ProductDetails = ({ product }) => {
@@ -24,6 +25,7 @@ const ProductDetails = ({ product }) => {
   ];
 
   const addToCartHandler = () => {
+    toast.success("Product added to cart");
     addItemToCart({
       product: product?._id,
       name: product?.name,

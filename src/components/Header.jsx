@@ -1,12 +1,30 @@
 "use client";
-import CartContext from "@/context/cartContext";
+import { AuthContext } from "@/context/authContext";
+import { CartContext } from "@/context/cartContext";
+import { ShoppingBasket, User } from "lucide-react";
+import { signOut, useSession } from "next-auth/react";
+import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
+import { toast } from "react-toastify";
 import Search from "./Search";
 
 const Header = () => {
+  const { user, setUser } = useContext(AuthContext);
   const { cart } = useContext(CartContext);
   const totalItems = cart?.cartItems?.length;
+  const { data } = useSession();
+  useEffect(() => {
+    if (data) {
+      setUser(data?.user);
+    }
+  }, [data]);
+
+  const signOutHandler = async () => {
+    await signOut();
+    setUser(null);
+    toast.success("Sign out successfully");
+  };
   return (
     <header className="bg-white py-2 border-b">
       <div className="container max-w-screen-xl mx-auto px-4">
@@ -20,7 +38,7 @@ const Header = () => {
                 alt="BuyItNow"
               /> */}
               <span className="font-extrabold text-black">
-                First Next.js Ecommerce
+                NextJs <span className="text-blue-500">Ecommerce</span>
               </span>
             </Link>
           </div>
@@ -31,34 +49,58 @@ const Header = () => {
               href="/cart"
               className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
             >
-              <i className="text-gray-400 w-5 fa fa-shopping-cart"></i>
-              <span className="hidden lg:inline ml-1">
-                Cart (<b>{totalItems || 0}</b>)
-              </span>
-            </Link>
-            <Link
-              href="/login"
-              className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
-            >
-              <i className="text-gray-400 w-5 fa fa-user"></i>
-              <span className="hidden lg:inline ml-1">Sign in</span>
-            </Link>
-            <Link href="/me">
-              <div className="flex items-center mb-4 space-x-3 mt-4 cursor-pointer">
-                <img
-                  className="w-10 h-10 rounded-full"
-                  src={"/images/default.png"}
-                />
-                <div className="space-y-1 font-medium">
-                  <p>
-                    Ghulam
-                    <time className="block text-sm text-gray-500 dark:text-gray-400">
-                      test@gmail.com
-                    </time>
-                  </p>
-                </div>
+              <div className="flex">
+                <ShoppingBasket className="text-gray-400 w-5" />
+                <span className="hidden lg:inline ml-1">
+                  Cart (<b>{totalItems || 0}</b>)
+                </span>
               </div>
             </Link>
+            {user ? (
+              <button
+                onClick={() => signOutHandler()}
+                className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
+              >
+                <div className="flex">
+                  <User className="text-gray-400 w-5" />
+                  <span className="hidden lg:inline ml-1">Sign Out</span>
+                </div>
+              </button>
+            ) : (
+              <Link
+                href="/login"
+                className="px-3 py-2 inline-block text-center text-gray-700 bg-white shadow-sm border border-gray-200 rounded-md hover:bg-gray-100 hover:border-gray-300"
+              >
+                <div className="flex">
+                  <User className="text-gray-400 w-5" />
+                  <span className="hidden lg:inline ml-1">Sign in</span>
+                </div>
+              </Link>
+            )}
+            {user && (
+              <Link href="/me">
+                <div className="flex items-center mb-4 space-x-3 mt-4 cursor-pointer">
+                  <Image
+                    className="w-10 h-10 rounded-full"
+                    src={
+                      user?.avatar ? user?.avatar?.url : "/images/default.png"
+                    }
+                    alt="user"
+                    width="40"
+                    height="40"
+                    priority={true}
+                  />
+                  <div className="space-y-1 font-medium">
+                    <p>
+                      {user?.name}
+                      <time className="block text-sm text-gray-500 dark:text-gray-400">
+                        {user?.email}
+                      </time>
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            )}
           </div>
 
           <div className="lg:hidden ml-2">

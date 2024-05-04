@@ -22,7 +22,7 @@ export default async function Home({ searchParams }) {
   const products = await getProducts(searchParams);
 
   return (
-    <main className="">
+    <main>
       <ListProducts products={products} />
     </main>
   );

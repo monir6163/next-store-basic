@@ -1,13 +1,15 @@
 "use client";
-import CartContext from "@/context/cartContext";
+import { CartContext } from "@/context/cartContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import Rating from "./Rating";
 
 const ProductItem = ({ product }) => {
   const { addItemToCart } = useContext(CartContext);
   const addToCartHandler = () => {
+    toast.success("Product added to cart");
     addItemToCart({
       product: product?._id,
       name: product?.name,
@@ -38,6 +40,7 @@ const ProductItem = ({ product }) => {
               alt="product anme"
               height="240"
               width="240"
+              priority={true}
             />
           </div>
         </div>

@@ -29,7 +29,7 @@ export default class APIFilters {
   filter() {
     const queryCopy = { ...this.queryStr };
     const removeFields = ["keyword", "page"];
-    removeFields.forEach((el) => delete queryCopy[el]);
+    // removeFields.forEach((el) => delete queryCopy[el]);
 
     let output = {};
     let prop = "";
