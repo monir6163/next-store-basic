@@ -39,11 +39,14 @@ export const authOptions = {
     }),
   ],
   callbacks: {
-    async jwt({ session, token, user }) {
-      if (user) {
-        return { ...token, ...user };
+    async jwt({ session, token, user, trigger }) {
+      if (trigger === "update") {
+        const getUpdate = await User.findById(session.user._id).select(
+          "+password"
+        );
+        return { ...token, ...getUpdate };
       }
-      return token;
+      return { ...token, ...user };
     },
     async session({ session, token, user }) {
       // delete token._doc.password;

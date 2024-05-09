@@ -1,6 +1,13 @@
+"use client";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
+import { toast } from "react-toastify";
 
 const Sidebar = () => {
+  const signOutHandler = async () => {
+    await signOut();
+    toast.success("Sign out successfully");
+  };
   return (
     <aside className="md:w-1/3 lg:w-1/4 px-4">
       <ul className="sidebar">
@@ -78,7 +85,7 @@ const Sidebar = () => {
         <li>
           {" "}
           <Link
-            href="/me/update_password"
+            href="/me/update-pass"
             className="block px-3 py-2 text-gray-800 hover:bg-blue-100 hover:text-blue-500 rounded-md"
           >
             Update Password
@@ -87,7 +94,10 @@ const Sidebar = () => {
 
         <li>
           {" "}
-          <a className="block px-3 py-2 text-red-800 hover:bg-red-100 hover:text-white-500 rounded-md cursor-pointer">
+          <a
+            className="block px-3 py-2 text-red-800 hover:bg-red-100 hover:text-white-500 rounded-md cursor-pointer"
+            onClick={signOutHandler}
+          >
             Logout
           </a>
         </li>

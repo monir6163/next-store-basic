@@ -2,6 +2,10 @@ import mongoose from "mongoose";
 
 const addressSchema = new mongoose.Schema(
   {
+    address: {
+      type: String,
+      required: true,
+    },
     city: {
       type: String,
       required: true,
@@ -20,6 +24,11 @@ const addressSchema = new mongoose.Schema(
     },
     country: {
       type: String,
+      required: true,
+    },
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
       required: true,
     },
     createdAt: {

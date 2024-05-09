@@ -1,5 +1,6 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { createContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -7,7 +8,7 @@ export const CartContext = createContext();
 
 export const CartProvider = ({ children }) => {
   const [cart, setCart] = useState([]);
-  // const router = useRouter();
+  const router = useRouter();
 
   useEffect(() => {
     setCartToState();
@@ -63,12 +64,25 @@ export const CartProvider = ({ children }) => {
     toast.success("Product removed from cart");
   };
 
+  const saveOnCheckout = ({ amount, tax, total }) => {
+    const checkOutInfo = {
+      amount,
+      tax,
+      total,
+    };
+    const newCart = { ...cart, checkOutInfo };
+    localStorage.setItem("cart", JSON.stringify(newCart));
+    setCartToState();
+    router.push("/shipping");
+  };
+
   return (
     <CartContext.Provider
       value={{
         cart,
         addItemToCart,
         deleteItemFromCart,
+        saveOnCheckout,
       }}
     >
       {children}

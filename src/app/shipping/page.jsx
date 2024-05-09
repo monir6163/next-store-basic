@@ -1,4 +1,4 @@
-import Profile from "@/components/Profile";
+import Shipping from "@/components/Shipping";
 import { authOptions } from "@/lib/authOptions";
 import axios from "axios";
 import { getServerSession } from "next-auth";
@@ -22,7 +22,7 @@ const page = async () => {
     redirect("/login");
   }
   const addresses = await getAddresses();
-  return <Profile addresses={addresses} />;
+  return <Shipping addresses={addresses} />;
 };
 
 export default page;

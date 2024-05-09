@@ -3,8 +3,9 @@ import { AuthContext } from "@/context/authContext";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
+import UserAddresses from "./UserAddresses";
 
-const Profile = () => {
+const Profile = ({ addresses }) => {
   const { user } = useContext(AuthContext);
   return (
     <>
@@ -12,7 +13,7 @@ const Profile = () => {
         <div className="relative">
           <Image
             className="w-16 h-16 rounded-full mr-4"
-            src={user?.avatar?.url || "/images/default.png"}
+            src={user?.avater?.url || "/images/default.png"}
             alt={user?.name}
             width={64}
             height={64}
@@ -29,7 +30,7 @@ const Profile = () => {
 
       <hr className="my-4" />
 
-      {/* <UserAddresses /> */}
+      <UserAddresses addresses={addresses} />
 
       <Link href="/address/new">
         <button className="px-4 py-2 inline-block text-blue-600 border border-gray-300 rounded-md hover:bg-gray-100">

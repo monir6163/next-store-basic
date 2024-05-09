@@ -31,6 +31,21 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updatePass = async (passdata) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.put(`/api/auth/passup`, passdata);
+      if (data?.status) {
+        toast.success("Password Update successful");
+        setLoading(false);
+        router.push("/me");
+      }
+    } catch (error) {
+      setLoading(false);
+      setError("Invalid password");
+    }
+  };
+
   const addNewAddress = async (addressData) => {
     setLoading(true);
     try {
@@ -38,6 +53,40 @@ export const AuthProvider = ({ children }) => {
 
       if (data?.address) {
         toast.success("Address added successfully");
+        setLoading(false);
+        router.push("/me");
+      }
+    } catch (error) {
+      setLoading(false);
+      setError(error.response.data.message);
+    }
+  };
+
+  const updateAddress = async (id, addressData) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.put(
+        `/api/address/update?id=${id}`,
+        addressData
+      );
+      if (data?.address) {
+        router.refresh();
+        toast.success("Address update successfully");
+        setLoading(false);
+        router.replace(`/address/${id}`);
+      }
+    } catch (error) {
+      setLoading(false);
+      setError(error.response.data.message);
+    }
+  };
+
+  const deleteAddress = async (id) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.delete(`/api/address/delete?id=${id}`);
+      if (data?.address) {
+        toast.success("Address delete successfully");
         setLoading(false);
         router.push("/me");
       }
@@ -55,7 +104,12 @@ export const AuthProvider = ({ children }) => {
         loading,
         setUser,
         registerUser,
+        updatePass,
+        setLoading,
+        setError,
         addNewAddress,
+        updateAddress,
+        deleteAddress,
         clearError,
       }}
     >

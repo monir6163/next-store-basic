@@ -18,8 +18,7 @@ const Header = () => {
     if (data) {
       setUser(data?.user);
     }
-  }, [data]);
-
+  }, [data, setUser]);
   const signOutHandler = async () => {
     await signOut();
     setUser(null);
@@ -83,7 +82,7 @@ const Header = () => {
                   <Image
                     className="w-10 h-10 rounded-full"
                     src={
-                      user?.avatar ? user?.avatar?.url : "/images/default.png"
+                      user?.avater ? user?.avater?.url : "/images/default.png"
                     }
                     alt="user"
                     width="40"
