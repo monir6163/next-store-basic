@@ -54,14 +54,14 @@ const orderSchema = new mongoose.Schema(
         type: Number,
         required: true,
       },
-      orderStatus: {
-        type: String,
-        default: "processing",
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-      },
+    },
+    orderStatus: {
+      type: String,
+      default: "processing",
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
     },
   },
   {

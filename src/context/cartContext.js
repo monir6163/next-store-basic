@@ -76,6 +76,11 @@ export const CartProvider = ({ children }) => {
     router.push("/shipping");
   };
 
+  const clearCart = () => {
+    localStorage.removeItem("cart");
+    setCartToState();
+  };
+
   return (
     <CartContext.Provider
       value={{
@@ -83,6 +88,7 @@ export const CartProvider = ({ children }) => {
         addItemToCart,
         deleteItemFromCart,
         saveOnCheckout,
+        clearCart,
       }}
     >
       {children}

@@ -76,15 +76,11 @@ export async function POST(req, _res) {
           { status: 500 }
         );
       }
-      return NextResponse.json(
-        {
-          status: true,
-          message: "Order created successfully",
-          order,
-        },
-        { status: 200 }
-      );
     }
+    return NextResponse.json({
+      status: true,
+      message: "Order created successfully",
+    });
   } catch (error) {
     console.log(error);
     return NextResponse.json(

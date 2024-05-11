@@ -7,7 +7,6 @@ export function cn(...inputs) {
 
 export default class APIFilters {
   constructor(query, queryStr) {
-    // console.log(query, queryStr);
     this.query = query;
     this.queryStr = queryStr;
   }
@@ -21,7 +20,7 @@ export default class APIFilters {
           },
         }
       : {};
-    // console.log(keyword);
+
     this.query = this.query.find({ ...keyword });
     return this;
   }
@@ -29,7 +28,7 @@ export default class APIFilters {
   filter() {
     const queryCopy = { ...this.queryStr };
     const removeFields = ["keyword", "page"];
-    // removeFields.forEach((el) => delete queryCopy[el]);
+    removeFields.forEach((el) => delete queryCopy[el]);
 
     let output = {};
     let prop = "";
@@ -48,13 +47,14 @@ export default class APIFilters {
       }
     }
     // { price: { '$gte': '100', '$lte': '200' } }
-    this.query = this.query.find(output).sort("-createdAt");
+    this.query = this.query.find(output);
     return this;
   }
 
   pagination(resPerPage) {
     const currentPage = Number(this.queryStr.page) || 1;
     const skip = resPerPage * (currentPage - 1);
+
     this.query = this.query.limit(resPerPage).skip(skip);
     return this;
   }
