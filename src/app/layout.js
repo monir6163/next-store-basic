@@ -1,5 +1,4 @@
 import Header from "@/components/Header";
-import { getServerSession } from "next-auth";
 import { Inter } from "next/font/google";
 import NextTopLoader from "nextjs-toploader";
 import { GlobalProvider } from "./GlobalProvider";
@@ -13,11 +12,10 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await getServerSession();
   return (
     <html lang="en">
       <body className={inter.className}>
-        <GlobalProvider session={session}>
+        <GlobalProvider>
           <Header />
           <NextTopLoader />
           {children}

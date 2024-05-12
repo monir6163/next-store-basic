@@ -2,6 +2,11 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
     name: {
       type: String,
       required: [true, "Please enter product name"],
@@ -28,7 +33,14 @@ const productSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please select product category"],
       enum: {
-        values: ["Electronics", "Laptops", "Toys", "Office", "Beauty"],
+        values: [
+          "Electronics",
+          "Cameras",
+          "Laptops",
+          "Accessories",
+          "Headphones",
+          "Sports",
+        ],
         message: "Please select correct category for product",
       },
     },

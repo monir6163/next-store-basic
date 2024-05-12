@@ -30,7 +30,7 @@ const Login = () => {
       if (data?.ok) {
         setLoading(false);
         toast.success("Logged in successfully");
-        router.push("/");
+        router.push("/me");
       }
     } catch (error) {
       setLoading(false);

@@ -1,9 +1,6 @@
 import Profile from "@/components/Profile";
-import { authOptions } from "@/lib/authOptions";
 import axios from "axios";
-import { getServerSession } from "next-auth";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 
 async function getAddresses() {
   const nextCookies = cookies();
@@ -17,10 +14,6 @@ async function getAddresses() {
 }
 
 const page = async () => {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    redirect("/login");
-  }
   const addresses = await getAddresses();
   return <Profile addresses={addresses} />;
 };
