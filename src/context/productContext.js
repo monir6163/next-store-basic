@@ -33,12 +33,72 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
+  const updateProduct = async (productData, id) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.put(
+        `/api/admin/products/update?id=${id}`,
+        productData
+      );
+
+      if (data?.status === true) {
+        toast.success("update product successfully");
+        setLoading(false);
+        router.push(`/admin/products/${id}`);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("update product failed");
+    }
+  };
+
+  const updateProductImages = async (imgData, id) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.post(
+        `/api/admin/products/updateimage?id=${id}`,
+        imgData
+      );
+
+      if (data?.status === true) {
+        toast.success("update product images successfully");
+        setLoading(false);
+        router.push("/admin/products");
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("update product images failed");
+    }
+  };
+
+  const deleteProduct = async (id) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.delete(
+        `/api/admin/products/delete?id=${id}`
+      );
+
+      if (data?.status === true) {
+        toast.success("delete product successfully");
+        setLoading(false);
+        router.push(`/admin/products`);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("delete product failed");
+    }
+  };
+
   return (
     <ProductContext.Provider
       value={{
         error,
         loading,
+        clearError,
         newProduct,
+        updateProductImages,
+        updateProduct,
+        deleteProduct,
       }}
     >
       {children}
