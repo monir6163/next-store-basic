@@ -1,4 +1,5 @@
 import Users from "@/components/admin/Users";
+import { getCookieName } from "@/lib/Helper";
 import { authOptions } from "@/lib/authOptions";
 import axios from "axios";
 import { getServerSession } from "next-auth";
@@ -8,7 +9,8 @@ import queryString from "query-string";
 
 async function getUsers(searchParams) {
   const nextCookies = cookies();
-  const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
   const urlParams = {
     page: searchParams.page || 1,
   };
@@ -17,7 +19,7 @@ async function getUsers(searchParams) {
     `${process.env.API_URL}/api/admin/users/getUsers?${searchQuery}`,
     {
       headers: {
-        Cookie: `next-auth.session-token=${nextAuthSessionToken?.value}`,
+        Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
       },
     }
   );

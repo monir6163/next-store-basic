@@ -1,4 +1,5 @@
 import UpdateUser from "@/components/admin/UpdateUser";
+import { getCookieName } from "@/lib/Helper";
 import { authOptions } from "@/lib/authOptions";
 import axios from "axios";
 import { getServerSession } from "next-auth";
@@ -7,12 +8,13 @@ import { redirect } from "next/navigation";
 
 async function getSignleUser(params) {
   const nextCookies = cookies();
-  const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
   const { data } = await axios.get(
     `${process.env.API_URL}/api/admin/users/singleUser?id=${params?.id}`,
     {
       headers: {
-        Cookie: `next-auth.session-token=${nextAuthSessionToken?.value}`,
+        Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
       },
     }
   );

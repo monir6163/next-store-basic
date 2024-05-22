@@ -1,4 +1,5 @@
 import Shipping from "@/components/Shipping";
+import { getCookieName } from "@/lib/Helper";
 import { authOptions } from "@/lib/authOptions";
 import axios from "axios";
 import { getServerSession } from "next-auth";
@@ -7,10 +8,11 @@ import { redirect } from "next/navigation";
 
 async function getAddresses() {
   const nextCookies = cookies();
-  const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
   const { data } = await axios.get(`${process.env.API_URL}/api/address/get`, {
     headers: {
-      Cookie: `next-auth.session-token=${nextAuthSessionToken?.value}`,
+      Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
     },
   });
   return data.address;

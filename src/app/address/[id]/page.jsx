@@ -1,15 +1,17 @@
 import UpdateAddress from "@/components/UpdateAddress";
+import { getCookieName } from "@/lib/Helper";
 import axios from "axios";
 import { cookies } from "next/headers";
 
 async function getAddresses(params) {
   const nextCookies = cookies();
-  const nextAuthSessionToken = nextCookies.get("next-auth.session-token");
+  const cookieName = getCookieName();
+  const nextAuthSessionToken = nextCookies.get(cookieName);
   const { data } = await axios.get(
     `${process.env.API_URL}/api/address/update?id=${params?.id}`,
     {
       headers: {
-        Cookie: `next-auth.session-token=${nextAuthSessionToken?.value}`,
+        Cookie: `${nextAuthSessionToken?.name}=${nextAuthSessionToken?.value}`,
       },
     }
   );
