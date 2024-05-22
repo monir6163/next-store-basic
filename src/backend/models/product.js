@@ -2,11 +2,6 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    },
     name: {
       type: String,
       required: [true, "Please enter product name"],
@@ -65,6 +60,11 @@ const productSchema = new mongoose.Schema(
         },
         comment: {
           type: String,
+          required: true,
+        },
+        user: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "User",
           required: true,
         },
         createdAt: {

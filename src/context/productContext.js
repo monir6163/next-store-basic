@@ -89,6 +89,25 @@ export const ProductProvider = ({ children }) => {
     }
   };
 
+  const reviewProduct = async (reviewData) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.put(
+        `/api/admin/products/review`,
+        reviewData
+      );
+
+      if (data?.status === true) {
+        toast.success("Review submitted successfully");
+        setLoading(false);
+        router.push(`/product/${reviewData.productId}`);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("Review submission failed");
+    }
+  };
+
   return (
     <ProductContext.Provider
       value={{
@@ -99,6 +118,7 @@ export const ProductProvider = ({ children }) => {
         updateProductImages,
         updateProduct,
         deleteProduct,
+        reviewProduct,
       }}
     >
       {children}

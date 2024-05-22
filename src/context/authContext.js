@@ -96,6 +96,43 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
+  const updateUser = async (id, userData) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.put(
+        `/api/admin/users/updateUser?id=${id}`,
+        userData
+      );
+      if (data?.status) {
+        toast.success("User updated successfully");
+        setLoading(false);
+        router.push(`/admin/users/${id}`);
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("User update failed");
+      setError(error.response.data.message);
+    }
+  };
+
+  const deleteuser = async (id) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.delete(
+        `/api/admin/users/deleteUser?id=${id}`
+      );
+      if (data?.status) {
+        toast.success("User deleted successfully");
+        setLoading(false);
+        router.refresh();
+      }
+    } catch (error) {
+      setLoading(false);
+      toast.error("User delete failed");
+      setError(error.response.data.message);
+    }
+  };
+
   return (
     <AuthContext.Provider
       value={{
@@ -111,6 +148,8 @@ export const AuthProvider = ({ children }) => {
         updateAddress,
         deleteAddress,
         clearError,
+        updateUser,
+        deleteuser,
       }}
     >
       {children}

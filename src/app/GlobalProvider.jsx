@@ -1,6 +1,7 @@
 "use client";
 import { AuthProvider } from "@/context/authContext";
 import { CartProvider } from "@/context/cartContext";
+import { OrderProvider } from "@/context/orderContext";
 import { ProductProvider } from "@/context/productContext";
 import { SessionProvider } from "next-auth/react";
 import { ToastContainer } from "react-toastify";
@@ -13,7 +14,9 @@ export function GlobalProvider({ children }) {
       <AuthProvider>
         <CartProvider>
           <ProductProvider>
-            <SessionProvider>{children}</SessionProvider>
+            <OrderProvider>
+              <SessionProvider>{children}</SessionProvider>
+            </OrderProvider>
           </ProductProvider>
         </CartProvider>
       </AuthProvider>
